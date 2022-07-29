@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sample-extension
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: sample-extension
+subjects:
+  - kind: ServiceAccount
+    name: sample-extension
+    namespace: ${SERVICE_NAMESPACE}
