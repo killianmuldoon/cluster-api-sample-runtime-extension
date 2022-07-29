@@ -27,16 +27,16 @@ import (
 	"k8s.io/component-base/logs"
 	"k8s.io/klog/v2"
 	"k8s.io/utils/pointer"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/client"
-
 	runtimecatalog "sigs.k8s.io/cluster-api/exp/runtime/catalog"
 	runtimehooksv1 "sigs.k8s.io/cluster-api/exp/runtime/hooks/api/v1alpha1"
 	"sigs.k8s.io/cluster-api/exp/runtime/server"
-	"sigs.k8s.io/cluster-api/test/extension/handlers/lifecycle"
-	"sigs.k8s.io/cluster-api/test/extension/handlers/topologymutation"
 	infrav1 "sigs.k8s.io/cluster-api/test/infrastructure/docker/api/v1beta1"
 	"sigs.k8s.io/cluster-api/version"
+	ctrl "sigs.k8s.io/controller-runtime"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+
+	"cluster-api-sample-runtime-extension/handlers/lifecycle"
+	"cluster-api-sample-runtime-extension/handlers/topologymutation"
 )
 
 var (
@@ -107,6 +107,16 @@ func main() {
 		os.Exit(1)
 	}
 
+	registerHooks(webhookServer)
+
+	setupLog.Info("Starting RuntimeExtension", "version", version.Get().String())
+	if err := webhookServer.Start(ctx); err != nil {
+		setupLog.Error(err, "error running webhook server")
+		os.Exit(1)
+	}
+}
+
+func registerHooks(webhookServer *server.Server) {
 	topologyMutationHandler := topologymutation.NewHandler(scheme)
 
 	if err := webhookServer.AddExtensionHandler(server.ExtensionHandler{
@@ -208,12 +218,6 @@ func main() {
 		FailurePolicy:  toPtr(runtimehooksv1.FailurePolicyFail),
 	}); err != nil {
 		setupLog.Error(err, "error adding handler")
-		os.Exit(1)
-	}
-
-	setupLog.Info("Starting RuntimeExtension", "version", version.Get().String())
-	if err := webhookServer.Start(ctx); err != nil {
-		setupLog.Error(err, "error running webhook server")
 		os.Exit(1)
 	}
 }

@@ -45,7 +45,7 @@ type Handler struct {
 // GeneratePatches returns a function that generates patches for the given request.
 func (h *Handler) GeneratePatches(ctx context.Context, req *runtimehooksv1.GeneratePatchesRequest, resp *runtimehooksv1.GeneratePatchesResponse) {
 	log := ctrl.LoggerFrom(ctx)
-	log.Info("GeneratePatches alled")
+	log.Info("GeneratePatches called")
 	resp.Status = runtimehooksv1.ResponseStatusSuccess
 }
 

@@ -34,34 +34,46 @@ type Handler struct {
 func (h *Handler) DoBeforeClusterCreate(ctx context.Context, request *runtimehooksv1.BeforeClusterCreateRequest, response *runtimehooksv1.BeforeClusterCreateResponse) {
 	log := ctrl.LoggerFrom(ctx)
 	log.Info("BeforeClusterCreate is called")
+	response.Status = runtimehooksv1.ResponseStatusSuccess
+	return
 }
 
 // DoBeforeClusterUpgrade implements the BeforeClusterUpgrade hook.
 func (h *Handler) DoBeforeClusterUpgrade(ctx context.Context, request *runtimehooksv1.BeforeClusterUpgradeRequest, response *runtimehooksv1.BeforeClusterUpgradeResponse) {
 	log := ctrl.LoggerFrom(ctx)
 	log.Info("BeforeClusterUpgrade is called")
+	response.Status = runtimehooksv1.ResponseStatusSuccess
+	return
 }
 
 // DoAfterControlPlaneInitialized implements the AfterControlPlaneInitialized hook.
 func (h *Handler) DoAfterControlPlaneInitialized(ctx context.Context, request *runtimehooksv1.AfterControlPlaneInitializedRequest, response *runtimehooksv1.AfterControlPlaneInitializedResponse) {
 	log := ctrl.LoggerFrom(ctx)
 	log.Info("AfterControlPlaneInitialized is called")
+	response.Status = runtimehooksv1.ResponseStatusSuccess
+	return
 }
 
 // DoAfterControlPlaneUpgrade implements the AfterControlPlaneUpgrade hook.
 func (h *Handler) DoAfterControlPlaneUpgrade(ctx context.Context, request *runtimehooksv1.AfterControlPlaneUpgradeRequest, response *runtimehooksv1.AfterControlPlaneUpgradeResponse) {
 	log := ctrl.LoggerFrom(ctx)
 	log.Info("AfterControlPlaneUpgrade is called")
+	response.Status = runtimehooksv1.ResponseStatusSuccess
+	return
 }
 
 // DoAfterClusterUpgrade implements the AfterClusterUpgrade hook.
 func (h *Handler) DoAfterClusterUpgrade(ctx context.Context, request *runtimehooksv1.AfterClusterUpgradeRequest, response *runtimehooksv1.AfterClusterUpgradeResponse) {
 	log := ctrl.LoggerFrom(ctx)
 	log.Info("AfterClusterUpgrade is called")
+	response.Status = runtimehooksv1.ResponseStatusSuccess
+	return
 }
 
 // DoBeforeClusterDelete implements the BeforeClusterDelete hook.
 func (h *Handler) DoBeforeClusterDelete(ctx context.Context, request *runtimehooksv1.BeforeClusterDeleteRequest, response *runtimehooksv1.BeforeClusterDeleteResponse) {
 	log := ctrl.LoggerFrom(ctx)
 	log.Info("BeforeClusterDelete is called")
+	response.Status = runtimehooksv1.ResponseStatusSuccess
+	return
 }
