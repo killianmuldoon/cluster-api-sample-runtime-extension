@@ -22,7 +22,7 @@ spec:
     class: quick-start-runtimesdk
     controlPlane:
       replicas: 1
-    version: v1.24.2
+    version: v1.24.0
     workers:
       machineDeployments:
       - class: default-worker
